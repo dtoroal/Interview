@@ -11,6 +11,18 @@
       ],
       "UpstreamPathTemplate": "/employ",
       "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/database/createddb",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5012
+        }
+      ],
+      "UpstreamPathTemplate": "/createddb",
+      "UpstreamHttpMethod": [ "Get" ]
     }
   ]
 }

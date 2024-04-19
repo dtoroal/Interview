@@ -1,23 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TalentuInterview.Employees.Models;
+using Microsoft.EntityFrameworkCore;
 using TalentuInterview.Employees.Services;
 
-namespace TalentuInterview.Employees.Controllers
+namespace TalentuInterview.Employees.Controllers;
+
+[Route("api/[controller]")]
+public class EmployController : Controller
 {
-    [Route("api/[controller]")]
-    public class EmployController : Controller
+    readonly IEmployService employService;
+
+    public EmployController(IEmployService service)
     {
-        readonly IEmployService employService;
+        employService = service;
+    }
 
-        public EmployController(IEmployService service)
-        {
-            employService = service;
-        }
-
-        [HttpGet]
-        public IActionResult Get()
-        {
-            return Ok(employService.Get());
-        }
+    [HttpGet]
+    public IActionResult Get()
+    {
+        return Ok(employService.Get());
     }
 }
