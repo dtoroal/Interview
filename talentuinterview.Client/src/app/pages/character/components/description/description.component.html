@@ -1,20 +1,23 @@
-<div class="description" *ngIf="character">
+<div class="description" *ngIf="employee">
   <div>
     <div class="description__image">
-      <img [src]="character.image" [alt]="character.name">
+      <img [src]="employee.image" [alt]="employee.name">
     </div>
 
     <p>
-      <b>Name:</b> {{character.name}}
+      <b>Name:</b> {{employee.name}} {{employee.lastName}}
     </p>
     <p>
-      <b>Status:</b> {{character.status}}
+      <b>Phone number:</b> {{employee.phoneNumber}}
     </p>
     <p>
-      <b>Species:</b> {{character.species}}
+      <b>Email:</b> {{employee.email}}
     </p>
     <p>
-      <b>Gender:</b> {{character.gender}}
+      <b>Birthday date:</b> {{employee.birthdayDate | date}}
+    </p>
+    <p>
+      <b>Hire date:</b> {{employee.hireDate | date}}
     </p>
   </div>
 

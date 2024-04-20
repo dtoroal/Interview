@@ -3,11 +3,13 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NavbarModule } from '../../shared/components/navbar/navbar.module';
 import { SidenavModule } from '../../shared/components/sidenav/sidenav.module';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { forkJoin, Subscription } from 'rxjs';
 import { CharacterService } from '../../services/character/character.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CharacterModel } from '../../models/characters/character.model';
 import { DescriptionComponent } from './components/description/description.component';
+import { EmployeeService } from '../../services/employee/employee.service';
+import { EmployeeModel } from '../../models/employees/employee.model';
 
 @Component({
   selector: 'character',
@@ -18,35 +20,44 @@ import { DescriptionComponent } from './components/description/description.compo
 })
 export class CharacterComponent implements OnInit, OnDestroy {
 
-  public character?: CharacterModel;
+  public employee?: EmployeeModel;
   public openSidenav: boolean = false;
   private routeSub?: Subscription;
 
   constructor(
     private route: ActivatedRoute,
     private characterService: CharacterService,
+    private employeeService: EmployeeService,
   ) { }
 
   public toggleSidenavEvent(event: boolean): void {
     this.openSidenav = event;
   }
 
-  private getCharacter(characterId: string): void {
-    this.characterService.getCharacter(characterId).subscribe({
-      next: (response: CharacterModel) => {
-        this.character = response;
-      },
-      error: (err: HttpErrorResponse) => {
-        console.error(err);
+  private getEmployee(employeeId: string, characterId: string): void {
+
+    forkJoin({
+      employee: this.employeeService.getEmployees(employeeId),
+      character: this.characterService.getCharacter(characterId),
+    }).subscribe(
+      {
+        next: (response: { employee: Array<EmployeeModel> | EmployeeModel, character: CharacterModel }) => {
+          this.employee = response.employee as EmployeeModel;
+          this.employee.image = response.character.image;
+        },
+        error: (err: HttpErrorResponse) => {
+          console.error(err);
+        }
       }
-    });
+    )
   }
 
   private routingSubscription(): void {
     this.routeSub = this.route.params.subscribe((params: Params) => {
-      if (params['id']) {
-        const id = params['id'];
-        this.getCharacter(id);
+      if (params['employeeId']) {
+        const employeeId = params['employeeId'];
+        const characterId = params['characterId'];
+        this.getEmployee(employeeId, characterId);
       }
     });
   }

@@ -1,7 +1,7 @@
 {
   "Routes": [
     {
-      "DownstreamPathTemplate": "/api/employee",
+      "DownstreamPathTemplate": "/api/employee/{id}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -9,7 +9,7 @@
           "Port": 5012
         }
       ],
-      "UpstreamPathTemplate": "/employee",
+      "UpstreamPathTemplate": "/employee/{id}",
       "UpstreamHttpMethod": [ "Get" ]
     },
     {

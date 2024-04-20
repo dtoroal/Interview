@@ -14,9 +14,15 @@ public class EmployeeController : Controller
         _employeeService = employeeService;
     }
 
-    [HttpGet]
-    public IActionResult Get()
+    [HttpGet("{id?}")]
+    public IActionResult Get(string? id)
     {
+        if (id == null)
+        {
         return Ok(_employeeService.Get());
+        } else
+        {
+            return Ok(_employeeService.Get(id));
+        }
     }
 }

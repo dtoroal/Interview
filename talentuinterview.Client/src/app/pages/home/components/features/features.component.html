@@ -13,15 +13,15 @@
       <!-- End of Section Title -->
       <div class="features__grid">
         <!-- Features Item -->
-        <div class="features__item" *ngFor="let character of charactersList"
-          (click)="redirectToCharacter(character.id)">
+        <div class="features__item" *ngFor="let employee of employeesList; let i = index"
+          (click)="redirectToEmployee(employee.id, charactersList?.[i]?.id)">
           <div class="features__item--image">
-            <img [src]="character.image" alt="character image">
+            <img [src]="charactersList?.[i]?.image" alt="employee">
           </div>
           <div class="">
-            <h4>{{character.name}}</h4>
-            <p><b>Species: </b>{{character.species}} </p>
-            <p><b>Status: </b>{{character.status}} </p>
+            <h4>{{employee.name}} {{employee.lastName}}</h4>
+            <p><b>Email: </b>{{employee.email}} </p>
+            <p><b>Birthday: </b>{{employee.birthdayDate | date}} </p>
           </div>
         </div>
       </div>

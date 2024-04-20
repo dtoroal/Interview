@@ -107,27 +107,26 @@ public class SqlServerContext : DbContext
             new Employee()
             {
                 Id = Guid.NewGuid(),
-                Name = "Rick",
-                LastName = "Sánchez",
-                Email = "rick@randm.com",
-                PhoneNumber = "1234567890",
-                BirthdayDate = DateTime.Now,
-                HashPassword = "gP33tSxUfbO0LU8v03M1frKYjZA4Bmt6BGU8H1EUQvk=",
-                RoleId = newRoles[0].Id,
-                HireDate = DateTime.Now.AddMonths(-3),
-            }
-,
-            new Employee()
-            {
-                Id = Guid.NewGuid(),
                 Name = "Morty",
                 LastName = "Smith",
                 Email = "morty@randm.com",
                 PhoneNumber = "1234567890",
-                BirthdayDate = DateTime.Now,
+                BirthdayDate = DateTime.Now.AddYears(-15).AddMonths(-7).AddDays(7),
                 HashPassword = "gP33tSxUfbO0LU8v03M1frKYjZA4Bmt6BGU8H1EUQvk=",
                 RoleId = newRoles[0].Id,
                 HireDate = DateTime.Now.AddMonths(-1),
+            },
+            new Employee()
+            {
+                Id = Guid.NewGuid(),
+                Name = "Rick",
+                LastName = "Sánchez",
+                Email = "rick@randm.com",
+                PhoneNumber = "1234567890",
+                BirthdayDate = DateTime.Now.AddYears(-39).AddMonths(-3).AddDays(5),
+                HashPassword = "gP33tSxUfbO0LU8v03M1frKYjZA4Bmt6BGU8H1EUQvk=",
+                RoleId = newRoles[0].Id,
+                HireDate = DateTime.Now.AddMonths(-3),
             }
 ,
         ];

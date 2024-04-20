@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { CharacterModel } from '../../../../models/characters/character.model';
 import { CommonModule } from '@angular/common';
+import { EmployeeModel } from '../../../../models/employees/employee.model';
 
 @Component({
   selector: 'description',
@@ -10,6 +10,6 @@ import { CommonModule } from '@angular/common';
   styleUrl: './description.component.scss'
 })
 export class DescriptionComponent {
-  @Input() character?: CharacterModel;
+  @Input() employee?: EmployeeModel;
 
 }
