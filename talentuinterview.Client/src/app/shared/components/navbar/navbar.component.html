@@ -12,7 +12,12 @@
         <li class="navbar__actions--item">
           <a class="navbar__actions--link" href="/">Home</a>
         </li>
-        <li class="navbar__actions--item navbar__actions--search" (click)="toggleSidenav()">
+        <li class="navbar__actions--item navbar__actions--login" *ngIf="!isAuthenticated" (click)="toggleLoginModal()">
+          <a class="navbar__actions--link">
+            <svg></svg>
+          </a>
+        </li>
+        <li class="navbar__actions--item navbar__actions--search" *ngIf="isAuthenticated" (click)="toggleSidenav()">
           <a class="navbar__actions--link">
             <svg></svg>
           </a>

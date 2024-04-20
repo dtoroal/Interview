@@ -2,6 +2,8 @@ const { env } = require('process');
 
 const target = env.ASPNETCORE_HTTPS_PORT ? `https://localhost:${env.ASPNETCORE_HTTPS_PORT}` :
   env.ASPNETCORE_URLS ? env.ASPNETCORE_URLS.split(';')[0] : 'https://localhost:7039';
+const target2 = env.ASPNETCORE_HTTPS_PORT ? `https://localhost:${env.ASPNETCORE_HTTPS_PORT}` :
+  env.ASPNETCORE_URLS ? env.ASPNETCORE_URLS.split(';')[0] : 'https://localhost:7041';
 
 const PROXY_CONFIG = [
   {
@@ -9,6 +11,13 @@ const PROXY_CONFIG = [
       "/employee",
     ],
     target,
+    secure: false
+  },
+  {
+    context: [
+      "/auth",
+    ],
+    target: target2,
     secure: false
   }
 ]

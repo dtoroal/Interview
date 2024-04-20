@@ -3,7 +3,8 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { environment } from '../environments/environment.development';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { interceptorInterceptor } from './interceptor.interceptor';
 
 function getApiUrl(): string {
   return environment.api;
@@ -19,5 +20,6 @@ export const appConfig: ApplicationConfig = {
     { provide: 'APIGETWAY_URL', useFactory: getApiGetwayUrl, deps: [] },
     provideHttpClient(),
     provideRouter(routes),
+    provideHttpClient(withInterceptors([interceptorInterceptor])),
   ]
 };

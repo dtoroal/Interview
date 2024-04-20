@@ -8,10 +8,14 @@ import { CharacterModel } from '../../models/characters/character.model';
 })
 export class HomeComponent {
   public openSidenav: boolean = false;
+  public openLoginModal: boolean = false;
   public charactersList?: Array<CharacterModel>;
 
   public toggleSidenavEvent(event: boolean): void {
     this.openSidenav = event;
   }
 
+  public toggleLoginModalEvent(event: boolean): void {
+    this.openLoginModal = event;
+  }
 }

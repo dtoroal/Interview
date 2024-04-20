@@ -3,16 +3,6 @@ using TalentuInterview.Employees.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// CORS configuration
-builder.Services.AddCors(options => options.AddPolicy(name: "AngularUI",
-    policy =>
-    {
-        policy.AllowAnyOrigin()
-        .AllowAnyMethod()
-        .AllowAnyHeader();
-    }
-    ));
-
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -42,6 +32,5 @@ app.MapControllers();
 
 app.MapFallbackToFile("/index.html");
 
-app.UseCors("AngularUI");
 
 app.Run();

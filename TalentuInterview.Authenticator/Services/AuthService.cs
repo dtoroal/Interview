@@ -25,10 +25,10 @@ public class AuthService: IAuthService
         _config = config;
     }
 
-    public async Task<User?> RegisterUser(string email, string password)
+    public async Task<Employee?> RegisterUser(string email, string password)
     {
         // Check if username already exists
-        User? user = await _dbContext.User.FirstOrDefaultAsync(u => u.Email == email);
+        Employee? user = await _dbContext.Employee.FirstOrDefaultAsync(u => u.Email == email);
         if (user != null)
         {
             return null; // Username already taken
@@ -38,19 +38,19 @@ public class AuthService: IAuthService
         string passwordHash = _passwordHasher.HashPassword(password);
 
         // Save user to database
-        _dbContext.User.Add(new User { Email = email, PasswordHash = passwordHash });
+        _dbContext.Employee.Add(new Employee { Email = email, HashPassword = passwordHash });
         await _dbContext.SaveChangesAsync();
 
-        User newUser = new() { Email = email, PasswordHash = passwordHash };
+        Employee newUser = new() { Email = email, HashPassword = passwordHash };
 
         return newUser; // Registration successful
     }
 
-    public async Task<User?> AuthenticateUser(string email, string password)
+    public async Task<Employee?> AuthenticateUser(string email, string password)
     {
         // Find user by username
-        var user = await _dbContext.User.FirstOrDefaultAsync(u => u.Email == email);
-        if (user != null && _passwordHasher.VerifyPassword(password, user.PasswordHash))
+        var user = await _dbContext.Employee.FirstOrDefaultAsync(u => u.Email == email);
+        if (user != null && _passwordHasher.VerifyPassword(password, user.HashPassword))
         {
             return user; // Authentication successful
         }
@@ -59,28 +59,29 @@ public class AuthService: IAuthService
 
     public string SetJWTToken(string email)
     {
-        SymmetricSecurityKey securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"] ?? ""));
-        SigningCredentials credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
-        Claim[] claims =
+        SymmetricSecurityKey secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"] ?? ""));
+        SigningCredentials signingCredentials = new(secretKey, SecurityAlgorithms.HmacSha256);
+        
+        List<Claim> claims =
         [
-           new Claim(ClaimTypes.Email, email),
+            new Claim(JwtRegisteredClaimNames.Email, email),
         ];
+        var tokenOptions = new JwtSecurityToken(
+            issuer: _config["Jwt:Issuer"] ?? "",
+            claims: claims,
+            expires: DateTime.Now.AddMinutes(30),
+            signingCredentials: signingCredentials
+        );
+        string tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
 
-        JwtSecurityToken Sectoken = new(_config["Jwt:Issuer"],
-          _config["Jwt:Issuer"],
-          claims,
-          expires: DateTime.Now.AddMinutes(120),
-          signingCredentials: credentials);
-
-        string token = new JwtSecurityTokenHandler().WriteToken(Sectoken);
-        return token;
+        return tokenString;
     }
 }
 
 public interface IAuthService
 {
-    Task<User?> RegisterUser(string email, string password);
-    Task<User?> AuthenticateUser(string email, string password);
+    Task<Employee?> RegisterUser(string email, string password);
+    Task<Employee?> AuthenticateUser(string email, string password);
     string SetJWTToken(string email);
 }

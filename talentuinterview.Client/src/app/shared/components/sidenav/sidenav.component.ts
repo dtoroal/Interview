@@ -34,8 +34,7 @@ export class SidenavComponent implements OnInit, OnDestroy {
   private getCharactersByName(characterName: string): void {
     this.characterService.getCharactersByName(characterName).subscribe({
       next: (response: ResponseModel<CharacterModel>) => {
-        const res = (response as ResponseModel<CharacterModel>);
-        this.charactersList = res.results;
+        this.charactersList = response.results;
       },
       error: (err: HttpErrorResponse) => {
         console.error(err);
@@ -43,7 +42,6 @@ export class SidenavComponent implements OnInit, OnDestroy {
       }
     });
   }
-
 
   private setFormSearchSubscription(): void {
     this.formSearchSubscription =

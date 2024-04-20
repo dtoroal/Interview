@@ -1,8 +1,10 @@
-<navbar (toggleSidenavEvent)="toggleSidenavEvent($event)">
+<navbar (toggleSidenavEvent)="toggleSidenavEvent($event)" (toggleLoginModalEvent)="toggleLoginModalEvent($event)">
 </navbar>
 <sidenav [openSidenav]="openSidenav" (toggleSidenavEvent)="toggleSidenavEvent($event)">
 </sidenav>
 <jumbotron>
 </jumbotron>
+<login *ngIf="openLoginModal" (toggleLoginModalEvent)="toggleLoginModalEvent($event)">
+</login>
 <features [charactersList]="charactersList">
 </features>

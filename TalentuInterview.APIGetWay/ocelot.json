@@ -10,7 +10,10 @@
         }
       ],
       "UpstreamPathTemplate": "/employee/{id}",
-      "UpstreamHttpMethod": [ "Get" ]
+      "UpstreamHttpMethod": [ "GET", "OPTIONS" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
     },
     {
       "DownstreamPathTemplate": "/api/database/createdb",
@@ -33,7 +36,7 @@
           "Port": 5013
         }
       ],
-      "UpstreamPathTemplate": "/signup",
+      "UpstreamPathTemplate": "/auth/signup",
       "UpstreamHttpMethod": [ "Post" ]
     },
     {
@@ -45,7 +48,19 @@
           "Port": 5013
         }
       ],
-      "UpstreamPathTemplate": "/login",
+      "UpstreamPathTemplate": "/auth/login",
+      "UpstreamHttpMethod": [ "POST", "OPTIONS" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/employee/test",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5012
+        }
+      ],
+      "UpstreamPathTemplate": "/test",
       "UpstreamHttpMethod": [ "Post" ]
     }
   ]

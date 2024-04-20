@@ -1,9 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 using TalentuInterview.Authenticator.Models;
 using TalentuInterview.Authenticator.Services;
 
@@ -20,11 +16,17 @@ public class AuthController : Controller
         _authenticationService = authenticationService;
     }
 
+    [HttpGet("test")]
+    public IActionResult Test()
+    {
+        return Ok("Funcionó");
+    }
+
     [HttpPost]
     [Route("signup")]
     public IActionResult SignUp([FromBody] LoginRequest loginRequest)
     {
-        User? newUser = _authenticationService.RegisterUser(loginRequest.Email, loginRequest.Password).Result;
+        Employee? newUser = _authenticationService.RegisterUser(loginRequest.Email, loginRequest.Password).Result;
 
         if (newUser != null)
         {
@@ -42,7 +44,7 @@ public class AuthController : Controller
     [Route("login")]
     public IActionResult Login([FromBody] LoginRequest loginRequest)
     {
-        User? user = _authenticationService.AuthenticateUser(loginRequest.Email, loginRequest.Password).Result;
+        Employee? user = _authenticationService.AuthenticateUser(loginRequest.Email, loginRequest.Password).Result;
 
         if (user != null)
         {

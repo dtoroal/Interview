@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TalentuInterview.APIGetway"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TalentuInterview.Employees", "TalentuInterview.Employees\TalentuInterview.Employees.csproj", "{1CDF3CF3-2CFD-4750-82E6-7522BC204BFA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TalentuInterview.Authenticator", "TalentuInterview.Authenticator\TalentuInterview.Authenticator.csproj", "{3D6E4D20-0D00-48B3-85A7-BA61D94CD4C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TalentuInterview.Authenticator", "TalentuInterview.Authenticator\TalentuInterview.Authenticator.csproj", "{3D6E4D20-0D00-48B3-85A7-BA61D94CD4C7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

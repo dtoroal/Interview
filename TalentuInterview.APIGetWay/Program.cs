@@ -1,3 +1,4 @@
+using TalentuInterview.Authenticator.Utilites;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 
@@ -11,9 +12,15 @@ builder.Services.AddOcelot(builder.Configuration);
 builder.Services.AddCors(options => options.AddPolicy(name: "AngularUI",
     policy =>
     {
-        policy.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
+        policy
+        .WithOrigins("http://localhost:4200")
+        .AllowAnyMethod()
+        .AllowAnyHeader();
     }
     ));
+
+// JWT configuration
+builder.Services.AddJwtAuthentication();
 
 var app = builder.Build();
 
@@ -27,3 +34,5 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.Run();
+
+

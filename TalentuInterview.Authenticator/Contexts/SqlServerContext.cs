@@ -5,7 +5,7 @@ namespace TalentuInterview.Authenticator.Contexts;
 
 public class SqlServerContext : DbContext
 {
-    public DbSet<User> User { get; set; }
+    public DbSet<Employee> Employee { get; set; }
 
     public SqlServerContext(DbContextOptions<SqlServerContext> options) : base(options) { }
 
