@@ -13,4 +13,7 @@ app.MapGet("/", () => "Hello World!");
 await app.UseOcelot();
 
 
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.Run();

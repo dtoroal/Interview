@@ -5,7 +5,7 @@ namespace TalentuInterview.Employees.Contexts;
 
 public class SqlServerContext : DbContext
 {
-    public DbSet<Employ> Employs { get; set; }
+    public DbSet<Employ> Employees { get; set; }
 
     public SqlServerContext(DbContextOptions<SqlServerContext> options) : base(options) { }
 
@@ -31,8 +31,8 @@ public class SqlServerContext : DbContext
 
     private List<Employ> InitEmployees()
     {
-        List<Employ> employeesInit = new List<Employ>();
-        employeesInit.Add(
+        List<Employ> employeesInit =
+        [
             new Employ()
             {
                 Id = Guid.NewGuid(),
@@ -41,9 +41,10 @@ public class SqlServerContext : DbContext
                 Email = "rick@randm.com",
                 PhoneNumber = "1234567890",
                 BirthdayDate = DateTime.Now,
+                HashPassword = "",
+                Role = 
             }
-            );
-        employeesInit.Add(
+,
             new Employ()
             {
                 Id = Guid.NewGuid(),
@@ -52,8 +53,10 @@ public class SqlServerContext : DbContext
                 Email = "morty@randm.com",
                 PhoneNumber = "1234567890",
                 BirthdayDate = DateTime.Now,
+                HashPassword = "",
             }
-            );
+,
+        ];
         return employeesInit;
     }
 }

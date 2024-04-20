@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using TalentuInterview.Employees.Services;
 
 namespace TalentuInterview.Employees.Controllers;
 
+[ApiController]
 [Route("api/[controller]")]
 public class EmployController : Controller
 {

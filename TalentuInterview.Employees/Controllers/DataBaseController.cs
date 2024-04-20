@@ -3,6 +3,7 @@ using TalentuInterview.Employees.Contexts;
 
 namespace TalentuInterview.Employees.Controllers;
 
+[ApiController]
 [Route("api/[controller]")]
 public class DataBaseController : Controller
 {

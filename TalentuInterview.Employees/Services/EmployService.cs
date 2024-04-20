@@ -16,7 +16,7 @@ public class EmployService: IEmployService
 
     public IEnumerable<Employ> Get()
     {
-        return context.Employs;
+        return context.Employees;
     }
 
 }
