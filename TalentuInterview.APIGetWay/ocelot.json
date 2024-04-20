@@ -1,7 +1,7 @@
 {
   "Routes": [
     {
-      "DownstreamPathTemplate": "/api/employ",
+      "DownstreamPathTemplate": "/api/employee",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -9,11 +9,11 @@
           "Port": 5012
         }
       ],
-      "UpstreamPathTemplate": "/employ",
+      "UpstreamPathTemplate": "/employee",
       "UpstreamHttpMethod": [ "Get" ]
     },
     {
-      "DownstreamPathTemplate": "/api/database/createddb",
+      "DownstreamPathTemplate": "/api/database/createdb",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -21,7 +21,7 @@
           "Port": 5012
         }
       ],
-      "UpstreamPathTemplate": "/createemployeesdb",
+      "UpstreamPathTemplate": "/createdb",
       "UpstreamHttpMethod": [ "Get" ]
     },
     {

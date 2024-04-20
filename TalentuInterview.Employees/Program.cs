@@ -11,7 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddSqlServer<SqlServerContext>(builder.Configuration.GetConnectionString("TalentuSqlServerConnection"));
-builder.Services.AddScoped<IEmployService, EmployService>();
+builder.Services.AddScoped<IEmployeeService, EmployService>();
 
 var app = builder.Build();
 

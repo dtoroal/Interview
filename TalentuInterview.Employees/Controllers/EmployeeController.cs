@@ -5,18 +5,18 @@ namespace TalentuInterview.Employees.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class EmployController : Controller
+public class EmployeeController : Controller
 {
-    readonly IEmployService employService;
+    readonly IEmployeeService _employeeService;
 
-    public EmployController(IEmployService service)
+    public EmployeeController(IEmployeeService employeeService)
     {
-        employService = service;
+        _employeeService = employeeService;
     }
 
     [HttpGet]
     public IActionResult Get()
     {
-        return Ok(employService.Get());
+        return Ok(_employeeService.Get());
     }
 }

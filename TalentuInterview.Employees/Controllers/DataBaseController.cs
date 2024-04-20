@@ -15,7 +15,7 @@ public class DataBaseController : Controller
     }
 
     [HttpGet]
-    [Route("createddb")]
+    [Route("createdb")]
     public IActionResult DatabaseCreated()
     {
         if (sqlServerContext.Database.EnsureCreated())

@@ -3,7 +3,7 @@ using TalentuInterview.Employees.Models;
 
 namespace TalentuInterview.Employees.Services;
 
-public class EmployService: IEmployService
+public class EmployService: IEmployeeService
 {
 
     readonly SqlServerContext context;
@@ -14,15 +14,14 @@ public class EmployService: IEmployService
     }
 
 
-    public IEnumerable<Employ> Get()
+    public IEnumerable<Employee> Get()
     {
         return context.Employees;
     }
 
 }
 
-public interface IEmployService
+public interface IEmployeeService
 {
-    IEnumerable<Employ> Get();
+    IEnumerable<Employee> Get();
 }
-
