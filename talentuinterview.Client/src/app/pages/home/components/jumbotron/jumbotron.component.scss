@@ -1,0 +1,211 @@
+@import "../../../../../assets/styles/animations/animations.scss";
+
+.jumbotron {
+  color: var(--lt-color-white);
+  padding-top: 80px;
+  padding-bottom: 80px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+  position: relative;
+  border-radius: 0;
+  margin-bottom: 0;
+  overflow: hidden;
+  min-height: 100vh;
+
+  &__container {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+
+    &--title {
+      text-align: center;
+      line-height: 0.9;
+      font-weight: bold;
+      display: inline-block;
+      border: 1rem solid var(--lt-color-white);
+      padding: 1.75rem;
+      font-size: 7rem;
+      opacity: 0;
+      animation: 1s fadeInFromTop cubic-bezier(0.785, 0.135, 0.15, 0.86) 1s
+        forwards;
+      animation-delay: 0.8s;
+
+      @media (max-width: 512px) {
+        font-size: 3.5rem;
+      }
+    }
+  }
+
+  &__rectangle-1 {
+    width: 2000px;
+    height: 400px;
+    background: #8e2de2;
+    background: -webkit-linear-gradient(to right, #4a00e0, #8e2de2);
+    background: linear-gradient(
+      to right,
+      var(--lt-color-purple-400),
+      var(--lt-color-purple-200)
+    );
+    transform-origin: -60% 100% 0;
+    position: absolute;
+    left: 0;
+    z-index: 0;
+    transform: scale(1) rotate(-10deg);
+    opacity: 0;
+    animation: grow1 ease 1s forwards;
+    box-shadow: 0px 20px 30px 0px rgba(9, 21, 54, 0.25) !important;
+  }
+
+  &__rectangle-2 {
+    width: 2000px;
+    height: 400px;
+    background: linear-gradient(
+      to right,
+      var(--lt-color-purple-400),
+      var(--lt-color-purple-200)
+    );
+    transform-origin: 80% 110% 0;
+    position: absolute;
+    right: 0;
+    z-index: 0;
+    transform: scale(1) rotate(50deg);
+    opacity: 0;
+    animation: grow2 ease 1s forwards;
+    box-shadow: 0px 20px 30px 0px rgba(9, 21, 54, 0.25) !important;
+  }
+
+  &__rectangle-transparent-1 {
+    width: 31.25rem;
+    height: 31.25rem;
+    border: 1rem solid rgba(255, 255, 255, 0.08);
+    position: absolute;
+    left: -5%;
+    bottom: -10%;
+    display: block;
+    animation: floating-slow ease-in-out 12s infinite;
+  }
+
+  &__rectangle-transparent-2 {
+    width: 37.5rem;
+    height: 37.5rem;
+    border: 1rem solid rgba(255, 255, 255, 0.08);
+    position: absolute;
+    right: -10%;
+    top: 5%;
+    display: block;
+    animation: floating-slow ease-in-out 12s infinite;
+  }
+
+  &__circle {
+    border: 2px solid var(--lt-color-white);
+    position: absolute;
+    display: block;
+    border-radius: 50%;
+
+    animation: fadeInFromTop 0.5s linear forwards, floating ease 4s infinite;
+  }
+
+  &__circle-1 {
+    width: 3.125rem;
+    height: 3.125rem;
+    left: 5%;
+    top: 40%;
+    transform-origin: 50% 50%;
+  }
+
+  &__circle-2 {
+    width: 4.375rem;
+    height: 4.375rem;
+    top: 15%;
+    left: 83%;
+    transform-origin: 50% 50%;
+  }
+
+  &__circle-3 {
+    width: 2.5rem;
+    height: 2.5rem;
+    top: 70%;
+    right: 25%;
+  }
+
+  &__triangle {
+    position: absolute;
+  }
+
+  &__triangle-1 {
+    top: 40%;
+    right: 0;
+    animation: fadeInFromTop 0.5s linear forwards,
+      floating ease-in-out 6s infinite;
+
+    img {
+      height: 3.125rem;
+      width: 3.125rem;
+      transform: rotate(30deg);
+    }
+  }
+
+  &__triangle-2 {
+    top: 25%;
+    left: 20%;
+    animation: fadeInFromTop 0.5s linear forwards,
+      floating ease-in-out 8s infinite;
+
+    img {
+      width: 4.6875rem;
+      height: 4.6875rem;
+      transform: rotate(15deg);
+    }
+  }
+
+  &__triangle-3 {
+    top: 67%;
+    left: 15%;
+    animation: fadeInFromTop 0.5s linear forwards,
+      floating ease-in-out 10s infinite;
+
+    img {
+      width: 2.8125rem;
+      height: 2.8125rem;
+      transform: rotate(40deg);
+    }
+  }
+
+  &__triangle-4 {
+    top: 50%;
+    right: 15%;
+    animation: fadeInFromTop 0.5s linear forwards,
+      floating ease-in-out 5s infinite;
+
+    img {
+      width: 2.8125rem;
+      height: 2.8125rem;
+      transform: rotate(-40deg);
+    }
+  }
+}
+
+.jumbotron:before {
+  position: absolute;
+  display: block;
+  content: "";
+  opacity: 0.8;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--lt-color-purple-100);
+  background: linear-gradient(
+    to right,
+    var(--lt-color-purple-500),
+    var(--lt-color-purple-100)
+  );
+}
+
+@media (max-width: 767px) and (orientation: landscape) {
+  .jumbotron {
+    min-height: 500px;
+  }
+}

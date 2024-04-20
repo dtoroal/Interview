@@ -1,0 +1,7 @@
+@import "./colors/base-color.scss";
+@import "./variables/variables.scss";
+
+:root {
+  @extend .colors-root;
+  @extend .z-index-root;
+}

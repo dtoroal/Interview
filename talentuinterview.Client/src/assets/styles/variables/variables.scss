@@ -1,0 +1,11 @@
+/* Z-index */
+.z-index-root {
+  --z-back: -1;
+  --z-none: 0;
+  --z-floor: 1;
+  --z-medium: 10;
+  --z-up: 50;
+  --z-top: 100;
+  --z-super: 150;
+  --z-extra: 200;
+}

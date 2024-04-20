@@ -1,0 +1,15 @@
+<div id="pagination" class="pagination">
+  <!-- Next button -->
+  <button class="pagination__button" (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1"
+    [ngClass]="{'pagination__button--disable': currentPage === 1}">
+    &laquo;
+  </button>
+
+  <span class="pagination__span">Page {{ currentPage }} of {{ totalPages }}</span>
+
+  <!-- Previous button -->
+  <button class="pagination__button" (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages"
+    [ngClass]="{'pagination__button--disable': currentPage === totalPages}">
+    &raquo;
+  </button>
+</div>

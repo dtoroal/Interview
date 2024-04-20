@@ -1,0 +1,16 @@
+.description {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 4rem;
+  transition: all 0.2s ease-in-out 0s !important;
+  box-shadow: 0 10px 30px 0 rgba(67, 80, 98, 0.24),
+    0 2px 4px 0 rgba(67, 80, 98, 0.1) !important;
+  padding: 2rem 1rem;
+  border-radius: 0.25rem;
+
+  &--image {
+    display: flex;
+    justify-content: center;
+  }
+}
