@@ -4,21 +4,25 @@
       <img [src]="employee.image" [alt]="employee.name">
     </div>
 
-    <p>
-      <b>Name:</b> {{employee.name}} {{employee.lastName}}
-    </p>
-    <p>
-      <b>Phone number:</b> {{employee.phoneNumber}}
-    </p>
-    <p>
-      <b>Email:</b> {{employee.email}}
-    </p>
-    <p>
-      <b>Birthday date:</b> {{employee.birthdayDate | date}}
-    </p>
-    <p>
-      <b>Hire date:</b> {{employee.hireDate | date}}
-    </p>
+    <form [formGroup]="employeeForm">
+      <p>
+        <b>Name: </b> <input [formControlName]="'name'" />
+      </p>
+      <p>
+        <b>Last name: </b> <input [formControlName]="'lastName'" />
+      </p>
+      <p>
+        <b>Phone number: </b> <input [formControlName]="'phoneNumber'" />
+      </p>
+      <p>
+        <b>Email: </b> <input [formControlName]="'email'" />
+      </p>
+
+      <button (click)="updateEmployee()">
+        Update Employee
+      </button>
+    </form>
+
   </div>
 
 </div>

@@ -17,5 +17,7 @@ namespace TalentuInterview.Employees.Models
 
         [JsonIgnore]
         public virtual ICollection<EmployeeProject>? EmployeeProject { get; }
+
+        public virtual string? Image {  get; set; }
     }
 }

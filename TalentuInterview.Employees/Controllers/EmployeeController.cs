@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity.Data;
+using Microsoft.AspNetCore.Mvc;
+using TalentuInterview.Employees.Models;
 using TalentuInterview.Employees.Services;
 
 namespace TalentuInterview.Employees.Controllers;
@@ -26,10 +28,18 @@ public class EmployeeController : Controller
         }
     }
 
-    [HttpPost]
-    [Route("test")]
-    public IActionResult Test()
+    [HttpPut]
+    [Route("update")]
+    public IActionResult Put([FromBody] Object employee)
     {
-        return Ok("Oe oe");
+        var json = Newtonsoft.Json.JsonConvert.DeserializeObject<Employee>(employee.ToString());
+        bool response = _employeeService.Update(json);
+        if (response)
+        {
+            return Ok(response);
+        } else
+        {
+            return BadRequest(response);
+        }
     }
 }

@@ -19,7 +19,6 @@ public class EmployService : IEmployeeService
         return context.Employees;
     }
 
-
     public Employee? Get(string? id)
     {
         if (id != null)
@@ -32,10 +31,34 @@ public class EmployService : IEmployeeService
         }
     }
 
+    public bool Update(Employee employee)
+    {
+        try
+        {
+            Employee? employeeToUpdate = context.Employees.FirstOrDefault(e => e.Id == employee.Id);
+
+            if (employeeToUpdate != null)
+            {
+                employeeToUpdate = employee;
+                context.Employees.Update(employeeToUpdate);
+                context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        } catch (Exception ex)
+        {
+            return false;
+        }
+    }
+
 }
 
 public interface IEmployeeService
 {
     IEnumerable<Employee> Get();
     Employee? Get(string id);
+    bool Update(Employee employee);
 }

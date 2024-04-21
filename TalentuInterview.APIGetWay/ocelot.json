@@ -16,6 +16,21 @@
       }
     },
     {
+      "DownstreamPathTemplate": "/api/employee/update",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5012
+        }
+      ],
+      "UpstreamPathTemplate": "/employee/update",
+      "UpstreamHttpMethod": [ "PUT", "OPTIONS" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
+    },
+    {
       "DownstreamPathTemplate": "/api/database/createdb",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -50,18 +65,6 @@
       ],
       "UpstreamPathTemplate": "/auth/login",
       "UpstreamHttpMethod": [ "POST", "OPTIONS" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/employee/test",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5012
-        }
-      ],
-      "UpstreamPathTemplate": "/test",
-      "UpstreamHttpMethod": [ "Post" ]
     }
   ]
 }

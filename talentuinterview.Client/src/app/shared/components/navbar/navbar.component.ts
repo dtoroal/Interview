@@ -20,6 +20,11 @@ export class NavbarComponent implements OnInit {
     this.toggleLoginModalEvent.emit(true);
   }
 
+  public closeSession(): void {
+    localStorage.removeItem('token');
+    window.location.href = '/home';
+  }
+
   ngOnInit(): void {
     this.isAuthenticated = !!localStorage.getItem('token');
   }

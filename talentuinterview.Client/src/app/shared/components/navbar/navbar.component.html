@@ -17,6 +17,11 @@
             <svg></svg>
           </a>
         </li>
+        <li class="navbar__actions--item navbar__actions--logout" *ngIf="isAuthenticated" (click)="closeSession()">
+          <a class="navbar__actions--link">
+            <svg></svg>
+          </a>
+        </li>
         <li class="navbar__actions--item navbar__actions--search" *ngIf="isAuthenticated" (click)="toggleSidenav()">
           <a class="navbar__actions--link">
             <svg></svg>

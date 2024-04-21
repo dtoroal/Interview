@@ -47,9 +47,10 @@ export class CharacterComponent implements OnInit, OnDestroy {
         },
         error: (err: HttpErrorResponse) => {
           console.error(err);
+          window.location.href = '/home';
         }
       }
-    )
+    );
   }
 
   private routingSubscription(): void {

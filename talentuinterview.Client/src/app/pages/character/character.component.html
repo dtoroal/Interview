@@ -2,4 +2,4 @@
 </navbar>
 <sidenav [openSidenav]="openSidenav" (toggleSidenavEvent)="toggleSidenavEvent($event)">
 </sidenav>
-<description [employee]="employee"></description>
+<description [employee]="employee" *ngIf="employee"></description>

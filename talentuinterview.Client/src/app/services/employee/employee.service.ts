@@ -21,4 +21,9 @@ export class EmployeeService {
     return this.httpClient.get<any>(`${this.baseUrlApiGetway}${employeeId ? '/' + employeeId : ''}`);
   }
 
+  public updateEmployee(employee: EmployeeModel): Observable<boolean> {
+    let { image, ...rest } = employee;
+    return this.httpClient.put<any>(`${this.baseUrlApiGetway}/update`, rest);
+  }
+
 }

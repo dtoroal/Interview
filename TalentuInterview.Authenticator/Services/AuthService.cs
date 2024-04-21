@@ -70,7 +70,7 @@ public class AuthService: IAuthService
         var tokenOptions = new JwtSecurityToken(
             issuer: _config["Jwt:Issuer"] ?? "",
             claims: claims,
-            expires: DateTime.Now.AddMinutes(30),
+            expires: DateTime.Now.AddMinutes(100),
             signingCredentials: signingCredentials
         );
         string tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
