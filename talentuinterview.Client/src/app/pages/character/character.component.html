@@ -1,0 +1,5 @@
+<navbar [hasBackground]="true" (toggleSidenavEvent)="toggleSidenavEvent($event)">
+</navbar>
+<sidenav [openSidenav]="openSidenav" (toggleSidenavEvent)="toggleSidenavEvent($event)">
+</sidenav>
+<description [employee]="employee" *ngIf="employee"></description>

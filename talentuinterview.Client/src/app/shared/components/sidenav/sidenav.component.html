@@ -1,0 +1,29 @@
+<div id="side-search" class="sidenav in" [ngClass]="{'sidenav__open': openSidenav}">
+  <a id="side-search-close" class="sidenav__close" (click)="toggleSidenav(false)">&times;</a>
+  <div class="sidenav__content">
+
+    <div class="sidenav__group">
+      <input class="sidenav__group--input" type="text" placeholder="Search" [formControl]="formSearch">
+      <div class="sidenav__group--search">
+        <button class="input-group-text" id="basic-text1">
+          <svg></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="sidenav__list">
+      <div class="sidenav__list--item" *ngFor="let character of charactersList"
+        (click)="redirectToCharacter(character.id)">
+        <div>
+          <img class="sidenav__list--image" [src]="character.image" [alt]="character.name">
+        </div>
+        <p>
+          {{character.name}}
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

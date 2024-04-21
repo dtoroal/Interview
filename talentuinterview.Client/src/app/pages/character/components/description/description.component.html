@@ -1,0 +1,28 @@
+<div class="description" *ngIf="employee">
+  <div>
+    <div class="description__image">
+      <img [src]="employee.image" [alt]="employee.name">
+    </div>
+
+    <form [formGroup]="employeeForm">
+      <p>
+        <b>Name: </b> <input [formControlName]="'name'" />
+      </p>
+      <p>
+        <b>Last name: </b> <input [formControlName]="'lastName'" />
+      </p>
+      <p>
+        <b>Phone number: </b> <input [formControlName]="'phoneNumber'" />
+      </p>
+      <p>
+        <b>Email: </b> <input [formControlName]="'email'" />
+      </p>
+
+      <button (click)="updateEmployee()">
+        Update Employee
+      </button>
+    </form>
+
+  </div>
+
+</div>

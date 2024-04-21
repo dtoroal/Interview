@@ -1,0 +1,38 @@
+<section id="features" class="features">
+  <div class="features__container">
+    <div>
+      <!-- Section Title -->
+      <div class="features__title">
+        <h2>
+          Employees Talentu
+        </h2>
+        <p>
+          Below are the Telentu employees.
+        </p>
+      </div>
+      <!-- End of Section Title -->
+      <div class="features__grid">
+        <!-- Features Item -->
+        <div class="features__item" *ngFor="let employee of employeesList; let i = index"
+          (click)="redirectToEmployee(employee.id, charactersList?.[i]?.id)">
+          <div class="features__item--image">
+            <img [src]="charactersList?.[i]?.image" alt="employee">
+          </div>
+          <div class="">
+            <h4>{{employee.name}} {{employee.lastName}}</h4>
+            <p><b>Email: </b>{{employee.email}} </p>
+            <p><b>Birthday: </b>{{employee.birthdayDate | date}} </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Paginator -->
+  <div class="features__paginator">
+    <paginator [currentPage]="currentPage" [itemsPerPage]="itemsPerPage" [totalItems]="totalItems"
+      (pageChanged)="onPageChange($event)">
+    </paginator>
+  </div>
+
+</section>

@@ -1,0 +1,146 @@
+.navbar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  transition: all 0.3s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  z-index: var(--z-medium);
+  margin-top: 1rem;
+
+  &__background {
+    background: linear-gradient(
+      to right,
+      var(--lt-color-purple-400),
+      var(--lt-color-purple-200)
+    );
+
+    margin-top: 0rem;
+  }
+
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0rem 20%;
+
+    @media (max-width: 512px) {
+      padding: 0rem 10%;
+    }
+  }
+
+  &__brand {
+    color: var(--lt-color-gray-100);
+    font-size: 1.75rem;
+    font-weight: 500;
+    line-height: 1.2;
+    text-decoration: none;
+
+    @media (max-width: 512px) {
+      font-size: 1.2rem;
+    }
+
+    @media (max-width: 1000px) {
+      font-size: 1.5rem;
+    }
+  }
+
+  &__toggler {
+    display: none;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+
+    svg {
+      background: url("../../../../assets/icons/icons-menu.svg") center
+        no-repeat;
+      fill: transparent;
+      width: 2rem;
+      height: 2rem;
+      transform: scale(0.4);
+    }
+
+    @media (max-width: 512px) {
+      display: block;
+    }
+  }
+
+  &__actions {
+    &--nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+
+      &:hover li a {
+        opacity: 0.5;
+      }
+
+      li a:hover {
+        opacity: 1;
+      }
+    }
+
+    &--item {
+      list-style-type: none;
+      align-self: center;
+      cursor: pointer;
+    }
+
+    &--link {
+      color: var(--lt-color-white);
+      transition: 0.3s ease;
+      text-decoration: none;
+      font-weight: 300;
+    }
+
+    &--search {
+      margin-right: -0.75rem;
+      svg {
+        background: url("../../../../assets/icons/icons-search.svg") center
+          no-repeat;
+        fill: transparent;
+        width: 2rem;
+        height: 2rem;
+        transform: scale(0.7);
+      }
+    }
+
+    &--login {
+      margin-right: -0.75rem;
+      svg {
+        background: url("../../../../assets/icons/icons-login.png") center
+          no-repeat;
+        fill: transparent;
+        width: 3rem;
+        height: 3rem;
+        transform: scale(0.5);
+      }
+    }
+
+    &--logout {
+      margin-right: -0.75rem;
+      svg {
+        background: url("../../../../assets/icons/icons-logout.png") center
+          no-repeat;
+        fill: transparent;
+        width: 3rem;
+        height: 3rem;
+        transform: scale(0.5);
+      }
+    }
+
+    &--menu {
+      svg {
+        background: url("../../../../assets/icons/icons-menu.svg") center
+          no-repeat;
+        fill: transparent;
+        width: 2rem;
+        height: 2rem;
+        transform: scale(0.4);
+      }
+    }
+
+    @media (max-width: 512px) {
+      display: none;
+    }
+  }
+}
