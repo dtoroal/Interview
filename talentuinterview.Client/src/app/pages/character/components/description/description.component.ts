@@ -25,8 +25,14 @@ export class DescriptionComponent implements OnInit {
 
   constructor(
     private employeeService: EmployeeService,
-  ) {
+  ) { }
 
+  public validateEmployee(): void {
+    if (this.employee?.id) {
+      this.updateEmployee();
+    } else {
+      this.createEmployee();
+    }
   }
 
   public updateEmployee(): void {
@@ -34,6 +40,22 @@ export class DescriptionComponent implements OnInit {
       {
         next: (response: boolean) => {
           alert('Employee updated');
+          if (response) {
+            window.location.reload();
+          }
+        },
+        error: (err: HttpErrorResponse) => {
+          console.error(err);
+        }
+      }
+    );
+  }
+
+  public createEmployee(): void {
+    this.employeeService.postEmployee(this.employeeForm.value).subscribe(
+      {
+        next: (response: boolean) => {
+          alert('Employee created');
           if (response) {
             window.location.reload();
           }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Azure;
+using Microsoft.AspNetCore.Mvc;
 using TalentuInterview.Employees.Models;
 using TalentuInterview.Employees.Services;
 
@@ -20,8 +21,9 @@ public class EmployeeController : Controller
     {
         if (id == null)
         {
-        return Ok(_employeeService.Get());
-        } else
+            return Ok(_employeeService.Get());
+        }
+        else
         {
             return Ok(_employeeService.Get(id));
         }
@@ -35,9 +37,25 @@ public class EmployeeController : Controller
         if (response)
         {
             return Ok(response);
-        } else
+        }
+        else
         {
             return BadRequest(response);
+        }
+    }
+
+    [HttpPut]
+    [Route("post")]
+    public IActionResult Post([FromBody] EmployeeRequest employee)
+    {
+        try
+        {
+            bool response = _employeeService.Post(employee);
+            return Ok(response);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
         }
     }
 }

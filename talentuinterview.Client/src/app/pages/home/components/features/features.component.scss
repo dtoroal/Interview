@@ -55,6 +55,26 @@
       justify-content: center;
     }
 
+    &--empty {
+      height: 18.75rem;
+      width: 18.75rem;
+      background-color: #c5c5c5;
+    }
+
+    &--plus {
+      display: flex;
+      align-content: center;
+      justify-content: center;
+
+      svg {
+        background: url("../../../../../assets/icons/icons-plus.svg") center
+          no-repeat;
+        background-color: transparent;
+        fill: transparent;
+        transform: scale(1.5);
+      }
+    }
+
     &:hover {
       transform: translateY(-13px);
     }

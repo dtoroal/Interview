@@ -6,6 +6,7 @@ namespace TalentuInterview.Employees.Contexts;
 public class SqlServerContext : DbContext
 {
     public DbSet<Employee> Employees { get; set; }
+    public DbSet<Role> Role { get; set; }
 
     public SqlServerContext(DbContextOptions<SqlServerContext> options) : base(options) { }
 

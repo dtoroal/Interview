@@ -65,6 +65,8 @@ export class CharacterComponent implements OnInit, OnDestroy {
         const employeeId = params['employeeId'];
         const characterId = params['characterId'];
         this.getEmployee(employeeId, characterId);
+      } else {
+        this.employee = {};
       }
     });
   }

@@ -6,5 +6,5 @@
 </jumbotron>
 <login *ngIf="openLoginModal" (toggleLoginModalEvent)="toggleLoginModalEvent($event)">
 </login>
-<features [charactersList]="charactersList">
+<features *ngIf="isAuthenticated" [charactersList]="charactersList">
 </features>

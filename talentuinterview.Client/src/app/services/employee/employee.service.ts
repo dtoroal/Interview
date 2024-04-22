@@ -23,16 +23,22 @@ export class EmployeeService {
   }
 
   public updateEmployee(employee: EmployeeModel): Observable<boolean> {
-
-    const request: RequestEmployeeModel = {
-      name: employee.name,
-      lastName: employee.lastName,
-      phoneNumber: employee.phoneNumber,
-      email: employee.email,
-      birthdayDate: employee.birthdayDate,
-    };
-
-    return this.httpClient.put<any>(`${this.baseUrlApiGetway}/update`, request);
+    const requestData: RequestEmployeeModel = this.setRequestEmployeeData(employee);
+    return this.httpClient.put<any>(`${this.baseUrlApiGetway}/update`, requestData);
   }
 
+  public postEmployee(employee: EmployeeModel): Observable<boolean> {
+    const requestData: RequestEmployeeModel = this.setRequestEmployeeData(employee);
+    return this.httpClient.post<any>(`${this.baseUrlApiGetway}/post`, requestData);
+  }
+
+  private setRequestEmployeeData(employee: EmployeeModel): RequestEmployeeModel {
+    return {
+      name: employee.name as string,
+      lastName: employee.lastName as string,
+      phoneNumber: employee.phoneNumber as string,
+      email: employee.email as string,
+      birthdayDate: employee.birthdayDate as Date,
+    };
+  }
 }

@@ -1,7 +1,7 @@
 <div class="description" *ngIf="employee">
   <div>
     <div class="description__image">
-      <img [src]="employee.image" [alt]="employee.name">
+      <img *ngIf="employee.image" [src]="employee.image" [alt]="employee.name">
     </div>
 
     <form [formGroup]="employeeForm">
@@ -15,7 +15,7 @@
         <b>Phone number: </b> <input [formControlName]="'phoneNumber'">
       </p>
       <p>
-        <b>Email: </b> <input [value]="employee.email" [disabled]="true">
+        <b>Email: </b> <input [formControlName]="'email'" [disabled]="!!employee.email">
       </p>
       <div class="description__date">
         <input matInput [matDatepicker]="picker" [formControlName]="'birthdayDate'">
@@ -23,7 +23,7 @@
         <mat-datepicker #picker></mat-datepicker>
       </div>
 
-      <button (click)="updateEmployee()">
+      <button (click)="validateEmployee()">
         Update Employee
       </button>
     </form>

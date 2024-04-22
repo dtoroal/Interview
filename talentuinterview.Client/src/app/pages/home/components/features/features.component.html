@@ -12,13 +12,25 @@
       </div>
       <!-- End of Section Title -->
       <div class="features__grid">
+        <!-- New Item -->
+        <div class="features__item" (click)="redirectToEmployee(undefined, undefined)">
+          <div class="features__item--image">
+            <div class="features__item--empty"></div>
+          </div>
+          <div>
+            <h4>Create a new employee</h4>
+            <div class="features__item--plus">
+              <svg></svg>
+            </div>
+          </div>
+        </div>
         <!-- Features Item -->
         <div class="features__item" *ngFor="let employee of employeesList; let i = index"
           (click)="redirectToEmployee(employee.id, charactersList?.[i]?.id)">
           <div class="features__item--image">
             <img [src]="charactersList?.[i]?.image" alt="employee">
           </div>
-          <div class="">
+          <div>
             <h4>{{employee.name}} {{employee.lastName}}</h4>
             <p><b>Email: </b>{{employee.email}} </p>
             <p><b>Birthday: </b>{{employee.birthdayDate | date}} </p>
