@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { EmployeeModel } from '../../models/employees/employee.model';
+import { RequestEmployeeModel } from '../../models/employees/request-employee.model';
 
 @Injectable({
   providedIn: 'root'
@@ -22,8 +23,16 @@ export class EmployeeService {
   }
 
   public updateEmployee(employee: EmployeeModel): Observable<boolean> {
-    let { image, ...rest } = employee;
-    return this.httpClient.put<any>(`${this.baseUrlApiGetway}/update`, rest);
+
+    const request: RequestEmployeeModel = {
+      name: employee.name,
+      lastName: employee.lastName,
+      phoneNumber: employee.phoneNumber,
+      email: employee.email,
+      birthdayDate: employee.birthdayDate,
+    };
+
+    return this.httpClient.put<any>(`${this.baseUrlApiGetway}/update`, request);
   }
 
 }

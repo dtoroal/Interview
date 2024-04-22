@@ -9,9 +9,19 @@
   padding: 2rem 1rem;
   border-radius: 0.25rem;
 
-  &--image {
+  &__image {
     display: flex;
     justify-content: center;
+  }
+
+  &__date {
+    position: relative;
+
+    .mat-datepicker-toggle {
+      position: absolute;
+      top: 0.25rem;
+      right: -1rem;
+    }
   }
 }
 

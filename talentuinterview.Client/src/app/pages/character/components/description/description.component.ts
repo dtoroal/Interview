@@ -4,11 +4,18 @@ import { EmployeeModel } from '../../../../models/employees/employee.model';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { EmployeeService } from '../../../../services/employee/employee.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @Component({
   selector: 'description',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule,],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+  ],
   templateUrl: './description.component.html',
   styleUrl: './description.component.scss'
 })

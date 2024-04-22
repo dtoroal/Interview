@@ -6,17 +6,22 @@
 
     <form [formGroup]="employeeForm">
       <p>
-        <b>Name: </b> <input [formControlName]="'name'" />
+        <b>Name: </b> <input [formControlName]="'name'">
       </p>
       <p>
-        <b>Last name: </b> <input [formControlName]="'lastName'" />
+        <b>Last name: </b> <input [formControlName]="'lastName'">
       </p>
       <p>
-        <b>Phone number: </b> <input [formControlName]="'phoneNumber'" />
+        <b>Phone number: </b> <input [formControlName]="'phoneNumber'">
       </p>
       <p>
-        <b>Email: </b> <input [formControlName]="'email'" />
+        <b>Email: </b> <input [value]="employee.email" [disabled]="true">
       </p>
+      <div class="description__date">
+        <input matInput [matDatepicker]="picker" [formControlName]="'birthdayDate'">
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </div>
 
       <button (click)="updateEmployee()">
         Update Employee

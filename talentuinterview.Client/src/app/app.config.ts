@@ -5,6 +5,7 @@ import { routes } from './app.routes';
 import { environment } from '../environments/environment.development';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { interceptorInterceptor } from './interceptor.interceptor';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 function getApiUrl(): string {
   return environment.api;
@@ -20,6 +21,6 @@ export const appConfig: ApplicationConfig = {
     { provide: 'APIGETWAY_URL', useFactory: getApiGetwayUrl, deps: [] },
     provideHttpClient(),
     provideRouter(routes),
-    provideHttpClient(withInterceptors([interceptorInterceptor])),
+    provideHttpClient(withInterceptors([interceptorInterceptor])), provideAnimationsAsync(), provideAnimationsAsync(),
   ]
 };

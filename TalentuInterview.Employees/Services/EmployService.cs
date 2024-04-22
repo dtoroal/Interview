@@ -31,15 +31,20 @@ public class EmployService : IEmployeeService
         }
     }
 
-    public bool Update(Employee employee)
+    public bool Update(EmployeeRequest employee)
     {
         try
         {
-            Employee? employeeToUpdate = context.Employees.FirstOrDefault(e => e.Id == employee.Id);
+            Employee? employeeToUpdate = context.Employees.FirstOrDefault(e => e.Email == employee.Email);
 
-            if (employeeToUpdate != null)
+            if (employeeToUpdate != null 
+                && !string.IsNullOrEmpty(employee.Name)
+                && !string.IsNullOrEmpty(employee.LastName))
             {
-                employeeToUpdate = employee;
+                employeeToUpdate.PhoneNumber = employee.PhoneNumber;
+                employeeToUpdate.Name = employee.Name;
+                employeeToUpdate.LastName = employee.LastName;
+
                 context.Employees.Update(employeeToUpdate);
                 context.SaveChanges();
                 return true;
@@ -60,5 +65,5 @@ public interface IEmployeeService
 {
     IEnumerable<Employee> Get();
     Employee? Get(string id);
-    bool Update(Employee employee);
+    bool Update(EmployeeRequest employee);
 }
