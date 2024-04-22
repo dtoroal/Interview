@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity.Data;
+﻿using Azure;
 using Microsoft.AspNetCore.Mvc;
 using TalentuInterview.Employees.Models;
 using TalentuInterview.Employees.Services;
@@ -21,8 +21,9 @@ public class EmployeeController : Controller
     {
         if (id == null)
         {
-        return Ok(_employeeService.Get());
-        } else
+            return Ok(_employeeService.Get());
+        }
+        else
         {
             return Ok(_employeeService.Get(id));
         }
@@ -30,16 +31,31 @@ public class EmployeeController : Controller
 
     [HttpPut]
     [Route("update")]
-    public IActionResult Put([FromBody] Object employee)
+    public IActionResult Put([FromBody] EmployeeRequest employee)
     {
-        var json = Newtonsoft.Json.JsonConvert.DeserializeObject<Employee>(employee.ToString());
-        bool response = _employeeService.Update(json);
+        bool response = _employeeService.Update(employee);
         if (response)
         {
             return Ok(response);
-        } else
+        }
+        else
         {
             return BadRequest(response);
+        }
+    }
+
+    [HttpPut]
+    [Route("post")]
+    public IActionResult Post([FromBody] EmployeeRequest employee)
+    {
+        try
+        {
+            bool response = _employeeService.Post(employee);
+            return Ok(response);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
         }
     }
 }

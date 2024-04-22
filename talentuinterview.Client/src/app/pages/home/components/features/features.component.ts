@@ -29,8 +29,8 @@ export class FeaturesComponent implements OnInit {
     this.getEmployees(this.currentPage);
   }
 
-  public redirectToEmployee(employeeId: string, characterId?: number): void {
-    window.location.href = `/employee/${employeeId}/${characterId}`;
+  public redirectToEmployee(employeeId?: string, characterId?: number): void {
+    window.location.href = `/employee/${employeeId ? employeeId + '/' + characterId : ''}`;
   }
 
   private getEmployees(pageNumber?: number): void {

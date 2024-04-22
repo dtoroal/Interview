@@ -14,7 +14,13 @@ import { EmployeeModel } from '../../models/employees/employee.model';
 @Component({
   selector: 'character',
   standalone: true,
-  imports: [CommonModule, NavbarModule, NavbarModule, SidenavModule, DescriptionComponent,],
+  imports: [
+    CommonModule,
+    NavbarModule,
+    NavbarModule,
+    SidenavModule,
+    DescriptionComponent,
+  ],
   templateUrl: './character.component.html',
   styleUrl: './character.component.scss'
 })
@@ -59,6 +65,8 @@ export class CharacterComponent implements OnInit, OnDestroy {
         const employeeId = params['employeeId'];
         const characterId = params['characterId'];
         this.getEmployee(employeeId, characterId);
+      } else {
+        this.employee = {};
       }
     });
   }

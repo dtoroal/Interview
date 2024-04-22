@@ -8,6 +8,10 @@ export const routes: Routes = [
     component: CharacterComponent,
   },
   {
+    path: 'employee',
+    component: CharacterComponent,
+  },
+  {
     path: 'home',
     component: HomeComponent,
   },

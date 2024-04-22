@@ -4,11 +4,18 @@ import { EmployeeModel } from '../../../../models/employees/employee.model';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { EmployeeService } from '../../../../services/employee/employee.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @Component({
   selector: 'description',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule,],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+  ],
   templateUrl: './description.component.html',
   styleUrl: './description.component.scss'
 })
@@ -18,8 +25,14 @@ export class DescriptionComponent implements OnInit {
 
   constructor(
     private employeeService: EmployeeService,
-  ) {
+  ) { }
 
+  public validateEmployee(): void {
+    if (this.employee?.id) {
+      this.updateEmployee();
+    } else {
+      this.createEmployee();
+    }
   }
 
   public updateEmployee(): void {
@@ -27,6 +40,22 @@ export class DescriptionComponent implements OnInit {
       {
         next: (response: boolean) => {
           alert('Employee updated');
+          if (response) {
+            window.location.reload();
+          }
+        },
+        error: (err: HttpErrorResponse) => {
+          console.error(err);
+        }
+      }
+    );
+  }
+
+  public createEmployee(): void {
+    this.employeeService.postEmployee(this.employeeForm.value).subscribe(
+      {
+        next: (response: boolean) => {
+          alert('Employee created');
           if (response) {
             window.location.reload();
           }
