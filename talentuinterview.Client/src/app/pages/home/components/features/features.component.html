@@ -26,7 +26,7 @@
         </div>
         <!-- Features Item -->
         <div class="features__item" *ngFor="let employee of employeesList; let i = index"
-          (click)="redirectToEmployee(employee.id, charactersList?.[i]?.id)">
+          (click)="redirectToEmployee(employee.email, charactersList?.[i]?.id)">
           <div class="features__item--image">
             <img [src]="charactersList?.[i]?.image" alt="employee">
           </div>

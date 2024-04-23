@@ -1,4 +1,6 @@
-﻿using TalentuInterview.Employees.Contexts;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Text.RegularExpressions;
+using TalentuInterview.Employees.Contexts;
 using TalentuInterview.Employees.Models;
 
 namespace TalentuInterview.Employees.Services;
@@ -19,11 +21,11 @@ public class EmployService : IEmployeeService
         return _context.Employees;
     }
 
-    public Employee? Get(string? id)
+    public Employee? Get(string? email)
     {
-        if (id != null)
+        if (email != null)
         {
-            return _context.Employees.FirstOrDefault(e => e.Id == Guid.Parse(id));
+            return _context.Employees.FirstOrDefault(e => e.Email == email);
         }
         else
         {
@@ -54,7 +56,30 @@ public class EmployService : IEmployeeService
                 return false;
             }
         }
-        catch (Exception ex)
+        catch (Exception)
+        {
+            return false;
+        }
+    }
+
+    public bool Delete(string? email)
+    {
+        try
+        {
+            Employee? employeeToUpdate = _context.Employees.FirstOrDefault(e => e.Email == email);
+
+            if (employeeToUpdate != null)
+            {
+                _context.Employees.Remove(employeeToUpdate);
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                throw new ArgumentException("Wrong email");
+            }
+        }
+        catch (Exception)
         {
             return false;
         }
@@ -75,6 +100,8 @@ public class EmployService : IEmployeeService
                         Email = employee.Email,
                         Name = employee.Name,
                         LastName = employee.LastName,
+                        BirthdayDate = employee.BirthdayDate,
+                        PhoneNumber = employee.PhoneNumber,
                         HireDate = DateTime.UtcNow,
                         HashPassword = "gP33tSxUfbO0LU8v03M1frKYjZA4Bmt6BGU8H1EUQvk=",
                         RoleId = userRole.Id,
@@ -92,11 +119,10 @@ public class EmployService : IEmployeeService
             {
                 return false;
             }
-
         }
         catch (Exception)
         {
-            throw;
+            return false;
         }
     }
 
@@ -114,13 +140,21 @@ public class EmployService : IEmployeeService
 
     private bool ValidateEmail(string email)
     {
-        Employee? employee = _context.Employees.FirstOrDefault(e => e.Email == email);
+        string pattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
 
-        if (employee != null)
+        if (Regex.IsMatch(email, pattern))
         {
-            return true;
-        }
-        else
+            Employee? employee = _context.Employees.FirstOrDefault(e => e.Email == email);
+
+            if (employee == null)
+            {
+                return true;
+            }
+            else
+            {
+                throw new ArgumentException("Wrong email");
+            }
+        } else
         {
             throw new ArgumentException("The email is already registered");
         }
@@ -130,7 +164,8 @@ public class EmployService : IEmployeeService
 public interface IEmployeeService
 {
     IEnumerable<Employee> Get();
-    Employee? Get(string id);
+    Employee? Get(string email);
     bool Update(EmployeeRequest employee);
     bool Post(EmployeeRequest employee);
+    bool Delete(string? email);
 }
