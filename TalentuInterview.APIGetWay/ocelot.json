@@ -46,6 +46,21 @@
       }
     },
     {
+      "DownstreamPathTemplate": "/api/employee/delete/{email}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5012
+        }
+      ],
+      "UpstreamPathTemplate": "/employee/delete/{email}",
+      "UpstreamHttpMethod": [ "DELETE", "OPTIONS" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
+    },
+    {
       "DownstreamPathTemplate": "/api/database/createdb",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [

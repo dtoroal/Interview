@@ -44,13 +44,28 @@ public class EmployeeController : Controller
         }
     }
 
-    [HttpPut]
+    [HttpPost]
     [Route("post")]
     public IActionResult Post([FromBody] EmployeeRequest employee)
     {
         try
         {
             bool response = _employeeService.Post(employee);
+            return Ok(response);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpDelete("{email}")]
+    [Route("delete/{email}")]
+    public IActionResult Delete(string? email)
+    {
+        try
+        {
+            bool response = _employeeService.Delete(email);
             return Ok(response);
         }
         catch (Exception ex)

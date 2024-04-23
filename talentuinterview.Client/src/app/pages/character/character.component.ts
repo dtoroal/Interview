@@ -40,10 +40,10 @@ export class CharacterComponent implements OnInit, OnDestroy {
     this.openSidenav = event;
   }
 
-  private getEmployee(employeeId: string, characterId: string): void {
+  private getEmployee(emailEmployee: string, characterId: string): void {
 
     forkJoin({
-      employee: this.employeeService.getEmployees(employeeId),
+      employee: this.employeeService.getEmployees(emailEmployee),
       character: this.characterService.getCharacter(characterId),
     }).subscribe(
       {
@@ -61,10 +61,10 @@ export class CharacterComponent implements OnInit, OnDestroy {
 
   private routingSubscription(): void {
     this.routeSub = this.route.params.subscribe((params: Params) => {
-      if (params['employeeId']) {
-        const employeeId = params['employeeId'];
+      if (params['emailEmployee']) {
+        const emailEmployee = params['emailEmployee'];
         const characterId = params['characterId'];
-        this.getEmployee(employeeId, characterId);
+        this.getEmployee(emailEmployee, characterId);
       } else {
         this.employee = {};
       }

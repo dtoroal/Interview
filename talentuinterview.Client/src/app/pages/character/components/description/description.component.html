@@ -15,7 +15,7 @@
         <b>Phone number: </b> <input [formControlName]="'phoneNumber'">
       </p>
       <p>
-        <b>Email: </b> <input [formControlName]="'email'" [disabled]="!!employee.email">
+        <b>Email: </b> <input [formControlName]="'email'" [email]="true">
       </p>
       <div class="description__date">
         <input matInput [matDatepicker]="picker" [formControlName]="'birthdayDate'">
@@ -24,7 +24,17 @@
       </div>
 
       <button (click)="validateEmployee()">
-        Update Employee
+        <ng-container *ngIf="employee?.email; else elseTemplate">
+          Update
+        </ng-container>
+        <ng-template #elseTemplate>
+          Create employee
+        </ng-template>
+      </button>
+
+      <button *ngIf="employee?.email" (click)="deleteEmployee()" class="description__delete"
+        [ngStyle]="{'margin-left': employee.email ? '0rem' : '1rem'}">
+        Delete
       </button>
     </form>
 

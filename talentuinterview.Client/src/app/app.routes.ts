@@ -4,7 +4,7 @@ import { HomeComponent } from './pages/home/home.component';
 
 export const routes: Routes = [
   {
-    path: 'employee/:employeeId/:characterId',
+    path: 'employee/:emailEmployee/:characterId',
     component: CharacterComponent,
   },
   {

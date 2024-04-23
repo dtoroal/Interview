@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EmployeeModel } from '../../../../models/employees/employee.model';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EmployeeService } from '../../../../services/employee/employee.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -28,15 +28,35 @@ export class DescriptionComponent implements OnInit {
   ) { }
 
   public validateEmployee(): void {
-    if (this.employee?.id) {
-      this.updateEmployee();
+    if (this.employeeForm.valid) {
+      if (this.employee?.id) {
+        this.updateEmployee();
+      } else {
+        this.createEmployee();
+      }
     } else {
-      this.createEmployee();
+      alert("There some mistakes in the form");
     }
   }
 
-  public updateEmployee(): void {
-    this.employeeService.updateEmployee(this.employeeForm.value).subscribe(
+  public deleteEmployee(): void {
+    this.employeeService.deleteEmployee(this.employeeForm.get('email')?.value).subscribe(
+      {
+        next: (response: boolean) => {
+          alert('Employee deleted');
+          if (response) {
+            window.location.href = '/home';
+          }
+        },
+        error: (err: HttpErrorResponse) => {
+          console.error(err);
+        }
+      }
+    );
+  }
+
+  private updateEmployee(): void {
+    this.employeeService.updateEmployee(this.employeeForm.getRawValue()).subscribe(
       {
         next: (response: boolean) => {
           alert('Employee updated');
@@ -51,7 +71,7 @@ export class DescriptionComponent implements OnInit {
     );
   }
 
-  public createEmployee(): void {
+  private createEmployee(): void {
     this.employeeService.postEmployee(this.employeeForm.value).subscribe(
       {
         next: (response: boolean) => {
@@ -67,19 +87,20 @@ export class DescriptionComponent implements OnInit {
     );
   }
 
-
   ngOnInit(): void {
+    const emailPattern: RegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
     this.employeeForm = new FormGroup({
-      id: new FormControl<string>(this.employee?.id ?? ''),
-      birthdayDate: new FormControl<Date>(this.employee?.birthdayDate ?? new Date()),
-      email: new FormControl<string>(this.employee?.email ?? ''),
-      hireDate: new FormControl<Date>(this.employee?.birthdayDate ?? new Date()),
-      lastName: new FormControl<string>(this.employee?.lastName ?? ''),
-      name: new FormControl<string>(this.employee?.name ?? ''),
-      phoneNumber: new FormControl<string>(this.employee?.phoneNumber ?? ''),
-      roleId: new FormControl<string>(this.employee?.roleId ?? ''),
-      image: new FormControl<string>(this.employee?.image ?? ''),
+      birthdayDate: new FormControl<Date>(this.employee?.birthdayDate ?? new Date(), [Validators.required]),
+      email: new FormControl<string>(this.employee?.email ?? '', [Validators.required, Validators.pattern(emailPattern)]),
+      lastName: new FormControl<string>(this.employee?.lastName ?? '', [Validators.required]),
+      name: new FormControl<string>(this.employee?.name ?? '', [Validators.required]),
+      phoneNumber: new FormControl<string>(this.employee?.phoneNumber ?? '', [Validators.required]),
     });
+
+    if (this.employee?.email) {
+      this.employeeForm.get('email')?.disable();
+    }
   }
 
 }

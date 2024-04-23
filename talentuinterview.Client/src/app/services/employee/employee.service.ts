@@ -32,6 +32,10 @@ export class EmployeeService {
     return this.httpClient.post<any>(`${this.baseUrlApiGetway}/post`, requestData);
   }
 
+  public deleteEmployee(employeeEmail: string): Observable<boolean> {
+    return this.httpClient.delete<any>(`${this.baseUrlApiGetway}/delete/${employeeEmail}`);
+  }
+
   private setRequestEmployeeData(employee: EmployeeModel): RequestEmployeeModel {
     return {
       name: employee.name as string,
