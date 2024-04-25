@@ -16,12 +16,6 @@ public class AuthController : Controller
         _authenticationService = authenticationService;
     }
 
-    [HttpGet("test")]
-    public IActionResult Test()
-    {
-        return Ok("Funcionó");
-    }
-
     [HttpPost]
     [Route("signup")]
     public IActionResult SignUp([FromBody] LoginRequest loginRequest)

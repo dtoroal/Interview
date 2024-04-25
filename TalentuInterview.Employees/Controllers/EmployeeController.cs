@@ -1,5 +1,4 @@
-﻿using Azure;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using TalentuInterview.Employees.Models;
 using TalentuInterview.Employees.Services;
 
