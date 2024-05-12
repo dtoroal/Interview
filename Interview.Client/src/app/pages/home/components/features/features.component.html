@@ -1,0 +1,50 @@
+<section id="features" class="features">
+  <div class="features__container">
+    <div>
+      <!-- Section Title -->
+      <div class="features__title">
+        <h2>
+          Employees Interview
+        </h2>
+        <p>
+          Below are the Telentu employees.
+        </p>
+      </div>
+      <!-- End of Section Title -->
+      <div class="features__grid">
+        <!-- New Item -->
+        <div class="features__item" (click)="redirectToEmployee(undefined, undefined)">
+          <div class="features__item--image">
+            <div class="features__item--empty"></div>
+          </div>
+          <div>
+            <h4>Create a new employee</h4>
+            <div class="features__item--plus">
+              <svg></svg>
+            </div>
+          </div>
+        </div>
+        <!-- Features Item -->
+        <div class="features__item" *ngFor="let employee of employeesList; let i = index"
+          (click)="redirectToEmployee(employee.email, charactersList?.[i]?.id)">
+          <div class="features__item--image">
+            <img [src]="charactersList?.[i]?.image" alt="employee">
+          </div>
+          <div>
+            <h4>{{employee.name}} {{employee.lastName}}</h4>
+            <p><b>Email: </b>{{employee.email}} </p>
+            <p><b>Birthday: </b>{{employee.birthdayDate | date}} </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Paginator -->
+  <div class="features__paginator">
+    <paginator [currentPage]="currentPage" [itemsPerPage]="itemsPerPage" [totalItems]="totalItems"
+      (pageChanged)="onPageChange($event)">
+    </paginator>
+  </div>
+
+</section>
