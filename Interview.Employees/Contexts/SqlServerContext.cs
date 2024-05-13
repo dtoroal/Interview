@@ -2,11 +2,12 @@
 using Interview.Employees.Models;
 
 namespace Interview.Employees.Contexts;
-
 public class SqlServerContext : DbContext
 {
-    public DbSet<Employee> Employees { get; set; }
-    public DbSet<Role> Role { get; set; }
+    public virtual DbSet<Employee> Employees { get; set; }
+    public virtual DbSet<Role> Role { get; set; }
+
+    public SqlServerContext() { }
 
     public SqlServerContext(DbContextOptions<SqlServerContext> options) : base(options) { }
 
@@ -106,31 +107,31 @@ public class SqlServerContext : DbContext
         List<Employee> employeesInit =
         [
             new Employee()
-            {
-                Id = Guid.NewGuid(),
-                Name = "Morty",
-                LastName = "Smith",
-                Email = "morty@randm.com",
-                PhoneNumber = "1234567890",
-                BirthdayDate = DateTime.Now.AddYears(-15).AddMonths(-7).AddDays(7),
-                HashPassword = "gP33tSxUfbO0LU8v03M1frKYjZA4Bmt6BGU8H1EUQvk=",
-                RoleId = newRoles[0].Id,
-                HireDate = DateTime.Now.AddMonths(-1),
-            },
-            new Employee()
-            {
-                Id = Guid.NewGuid(),
-                Name = "Rick",
-                LastName = "Sánchez",
-                Email = "rick@randm.com",
-                PhoneNumber = "1234567890",
-                BirthdayDate = DateTime.Now.AddYears(-39).AddMonths(-3).AddDays(5),
-                HashPassword = "gP33tSxUfbO0LU8v03M1frKYjZA4Bmt6BGU8H1EUQvk=",
-                RoleId = newRoles[0].Id,
-                HireDate = DateTime.Now.AddMonths(-3),
-            }
+        {
+            Id = Guid.NewGuid(),
+            Name = "Morty",
+            LastName = "Smith",
+            Email = "morty@randm.com",
+            PhoneNumber = "1234567890",
+            BirthdayDate = DateTime.Now.AddYears(-15).AddMonths(-7).AddDays(7),
+            HashPassword = "gP33tSxUfbO0LU8v03M1frKYjZA4Bmt6BGU8H1EUQvk=",
+            RoleId = newRoles[0].Id,
+            HireDate = DateTime.Now.AddMonths(-1),
+        },
+        new Employee()
+        {
+            Id = Guid.NewGuid(),
+            Name = "Rick",
+            LastName = "Sánchez",
+            Email = "rick@randm.com",
+            PhoneNumber = "1234567890",
+            BirthdayDate = DateTime.Now.AddYears(-39).AddMonths(-3).AddDays(5),
+            HashPassword = "gP33tSxUfbO0LU8v03M1frKYjZA4Bmt6BGU8H1EUQvk=",
+            RoleId = newRoles[0].Id,
+            HireDate = DateTime.Now.AddMonths(-3),
+        }
 ,
-        ];
+    ];
         return employeesInit;
     }
 
@@ -139,18 +140,18 @@ public class SqlServerContext : DbContext
         List<Role> initRoles =
         [
             new Role()
-            {
-                Id = Guid.NewGuid(),
-                Name = "Administrator",
-            }
+        {
+            Id = Guid.NewGuid(),
+            Name = "Administrator",
+        }
 ,
-            new Role()
-            {
-                Id = Guid.NewGuid(),
-                Name = "User",
-            }
+        new Role()
+        {
+            Id = Guid.NewGuid(),
+            Name = "User",
+        }
 ,
-        ];
+    ];
         return initRoles;
     }
 
@@ -159,19 +160,19 @@ public class SqlServerContext : DbContext
         List<Project> initProjects =
         [
             new Project()
-            {
-                Id = Guid.NewGuid(),
-                Name = "Licitación gobernación",
-                Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-            }
+        {
+            Id = Guid.NewGuid(),
+            Name = "Licitación gobernación",
+            Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        }
 ,
-            new Project()
-            {
-                Id = Guid.NewGuid(),
-                Name = "Administrador de recursos",
-            }
+        new Project()
+        {
+            Id = Guid.NewGuid(),
+            Name = "Administrador de recursos",
+        }
 ,
-        ];
+    ];
         return initProjects;
     }
 
@@ -180,25 +181,25 @@ public class SqlServerContext : DbContext
         List<EmployeeProject> initEmployeeProjects =
         [
             new EmployeeProject()
-            {
-                Id = Guid.NewGuid(),
-                EmployeeId = newEmployees[0].Id,
-                ProjectId = newProjects[0].Id,
-            },
-            new EmployeeProject()
-            {
-                Id = Guid.NewGuid(),
-                EmployeeId = newEmployees[0].Id,
-                ProjectId = newProjects[1].Id,
-            },
-            new EmployeeProject()
-            {
-                Id = Guid.NewGuid(),
-                EmployeeId = newEmployees[1].Id,
-                ProjectId = newProjects[0].Id,
-            }
+        {
+            Id = Guid.NewGuid(),
+            EmployeeId = newEmployees[0].Id,
+            ProjectId = newProjects[0].Id,
+        },
+        new EmployeeProject()
+        {
+            Id = Guid.NewGuid(),
+            EmployeeId = newEmployees[0].Id,
+            ProjectId = newProjects[1].Id,
+        },
+        new EmployeeProject()
+        {
+            Id = Guid.NewGuid(),
+            EmployeeId = newEmployees[1].Id,
+            ProjectId = newProjects[0].Id,
+        }
 ,
-        ];
+    ];
         return initEmployeeProjects;
     }
 }

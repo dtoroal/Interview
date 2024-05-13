@@ -37,24 +37,13 @@ public class EmployService : IEmployeeService
     {
         try
         {
-            Employee? employeeToUpdate = _context.Employees.FirstOrDefault(e => e.Email == employee.Email);
-
-            if (employeeToUpdate != null
-                && !string.IsNullOrEmpty(employee.Name)
+            if (!string.IsNullOrEmpty(employee.Name)
                 && !string.IsNullOrEmpty(employee.LastName))
             {
-                employeeToUpdate.PhoneNumber = employee.PhoneNumber;
-                employeeToUpdate.Name = employee.Name;
-                employeeToUpdate.LastName = employee.LastName;
+                return UpdateEmployee(employee);
+            }
 
-                _context.Employees.Update(employeeToUpdate);
-                _context.SaveChanges();
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return false;
         }
         catch (Exception)
         {
@@ -138,6 +127,27 @@ public class EmployService : IEmployeeService
         }
     }
 
+    #region Private
+    private bool UpdateEmployee(EmployeeRequest employee)
+    {
+        Employee? employeeToUpdate = _context.Employees.FirstOrDefault(e => e.Email == employee.Email);
+
+        if (employeeToUpdate != null)
+        {
+            employeeToUpdate.PhoneNumber = employee.PhoneNumber;
+            employeeToUpdate.Name = employee.Name;
+            employeeToUpdate.LastName = employee.LastName;
+
+            _context.Employees.Update(employeeToUpdate);
+            _context.SaveChanges();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     private bool ValidateEmail(string email)
     {
         string pattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
@@ -154,11 +164,13 @@ public class EmployService : IEmployeeService
             {
                 throw new ArgumentException("Wrong email");
             }
-        } else
+        }
+        else
         {
             throw new ArgumentException("The email is already registered");
         }
     }
+    #endregion
 }
 
 public interface IEmployeeService
