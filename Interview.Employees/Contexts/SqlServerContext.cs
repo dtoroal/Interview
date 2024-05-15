@@ -117,6 +117,7 @@ public class SqlServerContext : DbContext
             HashPassword = "gP33tSxUfbO0LU8v03M1frKYjZA4Bmt6BGU8H1EUQvk=",
             RoleId = newRoles[0].Id,
             HireDate = DateTime.Now.AddMonths(-1),
+            Image = "https://rickandmortyapi.com/api/character/avatar/2.jpeg",
         },
         new Employee()
         {
@@ -129,6 +130,7 @@ public class SqlServerContext : DbContext
             HashPassword = "gP33tSxUfbO0LU8v03M1frKYjZA4Bmt6BGU8H1EUQvk=",
             RoleId = newRoles[0].Id,
             HireDate = DateTime.Now.AddMonths(-3),
+            Image = "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
         }
 ,
     ];

@@ -1,11 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CharacterModel } from '../../../../models/characters/character.model';
-import { ResponseModel } from '../../../../models/common/response.model';
 import { HttpErrorResponse } from '@angular/common/http';
-import { CharacterService } from '../../../../services/character/character.service';
 import { EmployeeService } from '../../../../services/employee/employee.service';
 import { EmployeeModel } from '../../../../models/employees/employee.model';
-import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'features',
@@ -20,7 +17,6 @@ export class FeaturesComponent implements OnInit {
   public itemsPerPage: number = 10;
 
   constructor(
-    private characterService: CharacterService,
     private employeeService: EmployeeService,
   ) { }
 
@@ -30,24 +26,17 @@ export class FeaturesComponent implements OnInit {
   }
 
   public redirectToEmployee(emailEmployee?: string, characterId?: number): void {
-    window.location.href = `/employee/${emailEmployee ? emailEmployee + '/' + characterId : ''}`;
+    const parameter = emailEmployee ? emailEmployee : characterId;
+    window.location.href = `/${emailEmployee ? 'employee' : 'newemployee'}/${parameter}`;
   }
 
   private getEmployees(pageNumber?: number): void {
-    forkJoin(
-      {
-        employees: this.employeeService.getEmployees(),
-        characters: this.characterService.getCharacters(),
-      }
-    ).subscribe({
+    this.employeeService.getEmployees().subscribe({
       next: (
-        response: {
-          employees: Array<EmployeeModel> | EmployeeModel,
-          characters: ResponseModel<CharacterModel>
-        }) => {
-        this.charactersList = response.characters.results;
-        this.employeesList = response.employees as Array<EmployeeModel>;
-        this.totalItems = (response.employees as Array<EmployeeModel>).length;
+        response: Array<EmployeeModel> | EmployeeModel) => {
+        const employees = response as Array<EmployeeModel>;
+        this.employeesList = employees;
+        this.totalItems = employees.length;
       },
       error: (err: HttpErrorResponse) => {
         console.error(err);

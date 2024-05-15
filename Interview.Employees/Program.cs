@@ -3,7 +3,6 @@ using Interview.Employees.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 // CORS configuration
 SetCORS(builder);
 // SQL Server Configuration

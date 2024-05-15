@@ -18,7 +18,7 @@
         <b>Email: </b> <input [formControlName]="'email'" [email]="true">
       </p>
       <div class="description__date">
-        <input matInput [matDatepicker]="picker" [formControlName]="'birthdayDate'">
+        <b>Birthday: </b> <input matInput [matDatepicker]="picker" [formControlName]="'birthdayDate'">
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </div>

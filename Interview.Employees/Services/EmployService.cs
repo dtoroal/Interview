@@ -94,6 +94,7 @@ public class EmployService : IEmployeeService
                         HireDate = DateTime.UtcNow,
                         HashPassword = "gP33tSxUfbO0LU8v03M1frKYjZA4Bmt6BGU8H1EUQvk=",
                         RoleId = userRole.Id,
+                        Image = employee.Image,
                     };
 
                     _context.Employees.Add(newEmployee);

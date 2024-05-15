@@ -43,6 +43,7 @@ export class EmployeeService {
       phoneNumber: employee.phoneNumber as string,
       email: employee.email as string,
       birthdayDate: employee.birthdayDate as Date,
+      image: employee.image as string,
     };
   }
 }

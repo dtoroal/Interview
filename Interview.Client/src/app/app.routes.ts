@@ -4,12 +4,16 @@ import { HomeComponent } from './pages/home/home.component';
 
 export const routes: Routes = [
   {
-    path: 'employee/:emailEmployee/:characterId',
+    path: 'employee/:emailEmployee',
+    component: CharacterComponent,
+  },
+  {
+    path: 'newemployee/:characterId',
     component: CharacterComponent,
   },
   {
     path: 'employee',
-    component: CharacterComponent,
+    component: HomeComponent,
   },
   {
     path: 'home',

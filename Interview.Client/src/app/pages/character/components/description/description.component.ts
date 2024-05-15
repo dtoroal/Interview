@@ -50,7 +50,7 @@ export class DescriptionComponent implements OnInit {
         },
         error: (err: HttpErrorResponse) => {
           console.error(err);
-        }
+        },
       }
     );
   }
@@ -77,7 +77,7 @@ export class DescriptionComponent implements OnInit {
         next: (response: boolean) => {
           alert('Employee created');
           if (response) {
-            window.location.reload();
+            window.location.href = `/employee/${this.employeeForm.value?.email}`;
           }
         },
         error: (err: HttpErrorResponse) => {
@@ -96,6 +96,7 @@ export class DescriptionComponent implements OnInit {
       lastName: new FormControl<string>(this.employee?.lastName ?? '', [Validators.required]),
       name: new FormControl<string>(this.employee?.name ?? '', [Validators.required]),
       phoneNumber: new FormControl<string>(this.employee?.phoneNumber ?? '', [Validators.required]),
+      image: new FormControl<string>(this.employee?.image ?? ''),
     });
 
     if (this.employee?.email) {

@@ -4,4 +4,5 @@ export interface RequestEmployeeModel {
   lastName: string;
   name: string;
   phoneNumber: string;
+  image: string;
 }

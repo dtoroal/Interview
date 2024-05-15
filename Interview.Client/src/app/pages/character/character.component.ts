@@ -40,16 +40,12 @@ export class CharacterComponent implements OnInit, OnDestroy {
     this.openSidenav = event;
   }
 
-  private getEmployee(emailEmployee: string, characterId: string): void {
+  private getEmployee(emailEmployee: string): void {
 
-    forkJoin({
-      employee: this.employeeService.getEmployees(emailEmployee),
-      character: this.characterService.getCharacter(characterId),
-    }).subscribe(
+    this.employeeService.getEmployees(emailEmployee).subscribe(
       {
-        next: (response: { employee: Array<EmployeeModel> | EmployeeModel, character: CharacterModel }) => {
-          this.employee = response.employee as EmployeeModel;
-          this.employee.image = response.character.image;
+        next: (response: Array<EmployeeModel> | EmployeeModel) => {
+          this.employee = response as EmployeeModel;
         },
         error: (err: HttpErrorResponse) => {
           console.error(err);
@@ -63,12 +59,28 @@ export class CharacterComponent implements OnInit, OnDestroy {
     this.routeSub = this.route.params.subscribe((params: Params) => {
       if (params['emailEmployee']) {
         const emailEmployee = params['emailEmployee'];
-        const characterId = params['characterId'];
-        this.getEmployee(emailEmployee, characterId);
+        this.getEmployee(emailEmployee);
       } else {
-        this.employee = {};
+        this.setNewCharacterImage(params);
       }
     });
+  }
+
+  private setNewCharacterImage(params: Params) {
+    const characterId: string = String(Number.parseInt(params['characterId']) + 1);
+    if (characterId) {
+      this.characterService.getCharacter(characterId).subscribe(
+        {
+          next: (response: CharacterModel) => {
+            this.employee = {};
+            this.employee.image = response.image;
+          },
+          error: (err: HttpErrorResponse) => {
+            console.log(err);
+          }
+        }
+      );
+    }
   }
 
   ngOnInit() {
