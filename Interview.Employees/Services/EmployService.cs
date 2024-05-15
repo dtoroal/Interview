@@ -1,19 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using Interview.Employees.Contexts;
 using Interview.Employees.Models;
 
 namespace Interview.Employees.Services;
 
-public class EmployService : IEmployeeService
+public class EmployService(SqlServerContext dbContext) : IEmployeeService
 {
-
-    readonly SqlServerContext _context;
-
-    public EmployService(SqlServerContext dbContext)
-    {
-        _context = dbContext;
-    }
+    private readonly SqlServerContext _context = dbContext;
 
     public IEnumerable<Employee> Get()
     {
@@ -176,9 +169,37 @@ public class EmployService : IEmployeeService
 
 public interface IEmployeeService
 {
+    /// <summary>
+    /// Get every employee
+    /// </summary>
+    /// <returns>List of every employee</returns>
     IEnumerable<Employee> Get();
+
+    /// <summary>
+    /// Get an employee by email
+    /// </summary>
+    /// <param name="email">New user email</param>
+    /// <returns>Employee found or null</returns>
     Employee? Get(string email);
+
+    /// <summary>
+    /// Update an employee
+    /// </summary>
+    /// <param name="employee">Employee data</param>
+    /// <returns>True if the employee was updated</returns>
     bool Update(EmployeeRequest employee);
+
+    /// <summary>
+    /// Create a new employee
+    /// </summary>
+    /// <param name="employee">Employee data</param>
+    /// <returns>True if the employee was created</returns>
     bool Post(EmployeeRequest employee);
+
+    /// <summary>
+    /// Delete an employee by email
+    /// </summary>
+    /// <param email="email">Employee data</param>
+    /// <returns>True if the employee was created</returns>
     bool Delete(string? email);
 }

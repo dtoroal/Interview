@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
-using Interview.Authenticator.Models;
 using Interview.Authenticator.Services;
 
 namespace Interview.Authenticator.Controllers;
@@ -20,11 +19,10 @@ public class AuthController : Controller
     [Route("signup")]
     public IActionResult SignUp([FromBody] LoginRequest loginRequest)
     {
-        Employee? newUser = _authenticationService.RegisterUser(loginRequest.Email, loginRequest.Password).Result;
+        string? token = _authenticationService.RegisterUser(loginRequest.Email, loginRequest.Password).Result;
 
-        if (newUser != null)
+        if (string.IsNullOrEmpty(token))
         {
-            string token = _authenticationService.SetJWTToken(newUser.Email);
             return Ok(token);
         }
         else
@@ -33,16 +31,14 @@ public class AuthController : Controller
         }
     }
 
-
     [HttpPost]
     [Route("login")]
     public IActionResult Login([FromBody] LoginRequest loginRequest)
     {
-        Employee? user = _authenticationService.AuthenticateUser(loginRequest.Email, loginRequest.Password).Result;
+        string? token = _authenticationService.AuthenticateUser(loginRequest.Email, loginRequest.Password).Result;
 
-        if (user != null)
+        if (!string.IsNullOrEmpty(token))
         {
-            string token = _authenticationService.SetJWTToken(user.Email);
             return Ok(token);
         } else
         {

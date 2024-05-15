@@ -6,63 +6,69 @@ using System.Text;
 using Interview.Authenticator.Contexts;
 using Interview.Authenticator.Models;
 using Interview.Authenticator.Utilites;
+using Microsoft.AspNetCore.Identity.Data;
 
 namespace Interview.Authenticator.Services;
 
-public class AuthService: IAuthService
+public class AuthService : IAuthService
 {
-    private readonly SqlServerContext _dbContext;
+    private readonly SqlServerContext _employeeDbContext;
     private readonly IPasswordHasher _passwordHasher;
     private readonly IConfiguration _config;
 
     public AuthService(
-        SqlServerContext dbContext, 
-        IPasswordHasher passwordHasher, 
+        SqlServerContext dbContext,
+        IPasswordHasher passwordHasher,
         IConfiguration config)
     {
-        _dbContext = dbContext;
+        _employeeDbContext = dbContext;
         _passwordHasher = passwordHasher;
         _config = config;
     }
 
-    public async Task<Employee?> RegisterUser(string email, string password)
+    public async Task<string?> RegisterUser(string email, string password)
     {
-        // Check if username already exists
-        Employee? user = await _dbContext.Employee.FirstOrDefaultAsync(u => u.Email == email);
-        if (user != null)
+        try
         {
-            return null; // Username already taken
+            // Check if username already exists
+            Employee? user = await _employeeDbContext.Employee.FirstOrDefaultAsync(u => u.Email == email);
+            if (user != null)
+            {
+                return null; // Username already taken
+            }
+
+            // Hash the password
+            string passwordHash = _passwordHasher.HashPassword(password);
+
+            // Save user to database
+            _employeeDbContext.Employee.Add(new Employee { Email = email, HashPassword = passwordHash });
+            await _employeeDbContext.SaveChangesAsync();
+
+            return SetJWTToken(email);
         }
+        catch (Exception)
+        {
 
-        // Hash the password
-        string passwordHash = _passwordHasher.HashPassword(password);
-
-        // Save user to database
-        _dbContext.Employee.Add(new Employee { Email = email, HashPassword = passwordHash });
-        await _dbContext.SaveChangesAsync();
-
-        Employee newUser = new() { Email = email, HashPassword = passwordHash };
-
-        return newUser; // Registration successful
+            return null;
+        }
     }
 
-    public async Task<Employee?> AuthenticateUser(string email, string password)
+    public async Task<string?> AuthenticateUser(string email, string password)
     {
-        // Find user by username
-        var user = await _dbContext.Employee.FirstOrDefaultAsync(u => u.Email == email);
+        Employee? user = await _employeeDbContext.Employee.FirstOrDefaultAsync(u => u.Email == email);
         if (user != null && _passwordHasher.VerifyPassword(password, user.HashPassword))
         {
-            return user; // Authentication successful
+            return SetJWTToken(user.Email);
         }
-        return null; // Authentication failed
+        return null;
     }
 
     public string SetJWTToken(string email)
     {
 
-        SymmetricSecurityKey secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"] ?? ""));
+        SymmetricSecurityKey secretKey = new (Encoding.UTF8.GetBytes(_config["Jwt:Key"] ?? ""));
         SigningCredentials signingCredentials = new(secretKey, SecurityAlgorithms.HmacSha256);
-        
+
         List<Claim> claims =
         [
             new Claim(JwtRegisteredClaimNames.Email, email),
@@ -81,7 +87,19 @@ public class AuthService: IAuthService
 
 public interface IAuthService
 {
-    Task<Employee?> RegisterUser(string email, string password);
-    Task<Employee?> AuthenticateUser(string email, string password);
-    string SetJWTToken(string email);
+    /// <summary>
+    /// Register a new user
+    /// </summary>
+    /// <param name="email">New user email</param>
+    /// <param name="password">New password</param>
+    /// <returns>New employee data</returns>
+    Task<string?> RegisterUser(string email, string password);
+
+    /// <summary>
+    /// User authentication
+    /// </summary>
+    /// <param name="email">New user email</param>
+    /// <param name="password">New password</param>
+    /// <returns>Authentication token</returns>
+    Task<string?> AuthenticateUser(string email, string password);
 }
