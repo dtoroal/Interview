@@ -1,14 +1,10 @@
-﻿namespace Interview.Authenticator.Models;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using EmployeeBase = Interview.Shared.Models.Employee;
 
-public class Employee
+namespace Interview.Authenticator.Models;
+
+public class Employee: EmployeeBase
 {
-    public Guid Id { get; set; }
-    public required string Email { get; set; }
-    public required string HashPassword { get; set; }
-    public string? Name { get; set; }
-    public string? LastName { get; set; }
-    public string? PhoneNumber { get; set; }
-    public DateTime? BirthdayDate { get; set; }
-    public DateTime? HireDate { get; set; }
-    public Guid? RoleId { get; set; }
+    [NotMapped]
+    public virtual string? Password { get; set; }
 }

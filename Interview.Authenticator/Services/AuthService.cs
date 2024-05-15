@@ -4,9 +4,8 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Interview.Authenticator.Contexts;
-using Interview.Authenticator.Models;
 using Interview.Authenticator.Utilites;
-using Microsoft.AspNetCore.Identity.Data;
+using Interview.Authenticator.Models;
 
 namespace Interview.Authenticator.Services;
 
@@ -26,25 +25,25 @@ public class AuthService : IAuthService
         _config = config;
     }
 
-    public async Task<string?> RegisterUser(string email, string password)
+    public async Task<string?> RegisterUser(Employee user)
     {
         try
         {
             // Check if username already exists
-            Employee? user = await _employeeDbContext.Employee.FirstOrDefaultAsync(u => u.Email == email);
-            if (user != null)
+            Employee? existingUser = await _employeeDbContext.Employee.FirstOrDefaultAsync(u => u.Email == user.Email);
+            if (existingUser != null)
             {
                 return null; // Username already taken
             }
 
             // Hash the password
-            string passwordHash = _passwordHasher.HashPassword(password);
+            user.HashPassword = _passwordHasher.HashPassword(user.Password ?? "");
 
             // Save user to database
-            _employeeDbContext.Employee.Add(new Employee { Email = email, HashPassword = passwordHash });
+            _employeeDbContext.Employee.Add(user);
             await _employeeDbContext.SaveChangesAsync();
 
-            return SetJWTToken(email);
+            return SetJWTToken(user.Email);
         }
         catch (Exception)
         {
@@ -93,13 +92,12 @@ public interface IAuthService
     /// <param name="email">New user email</param>
     /// <param name="password">New password</param>
     /// <returns>New employee data</returns>
-    Task<string?> RegisterUser(string email, string password);
+    Task<string?> RegisterUser(Employee user);
 
     /// <summary>
     /// User authentication
     /// </summary>
-    /// <param name="email">New user email</param>
-    /// <param name="password">New password</param>
+    /// <param name="newEmployee">New user email</param>
     /// <returns>Authentication token</returns>
     Task<string?> AuthenticateUser(string email, string password);
 }

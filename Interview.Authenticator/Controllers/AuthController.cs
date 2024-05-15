@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Interview.Authenticator.Services;
+using Interview.Authenticator.Models;
 
 namespace Interview.Authenticator.Controllers;
 
@@ -17,9 +18,9 @@ public class AuthController : Controller
 
     [HttpPost]
     [Route("signup")]
-    public IActionResult SignUp([FromBody] LoginRequest loginRequest)
+    public IActionResult SignUp([FromBody] Employee user)
     {
-        string? token = _authenticationService.RegisterUser(loginRequest.Email, loginRequest.Password).Result;
+        string? token = _authenticationService.RegisterUser(user).Result;
 
         if (string.IsNullOrEmpty(token))
         {
